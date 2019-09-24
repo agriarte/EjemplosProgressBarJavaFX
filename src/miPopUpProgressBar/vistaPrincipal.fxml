@@ -5,6 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="miPopUpProgressBar.Controller">
    <children>
-      <Button fx:id="id_btn01" layoutX="325.0" layoutY="349.0" mnemonicParsing="false" text="Iniciar Proceso" />
+      <Button fx:id="id_btn01" layoutX="208.0" layoutY="349.0" mnemonicParsing="false" text="Iniciar Proceso 1" />
+      <Button fx:id="id_btn02" layoutX="408.0" layoutY="349.0" mnemonicParsing="false" text="Iniciar Proceso 2" />
    </children>
 </AnchorPane>

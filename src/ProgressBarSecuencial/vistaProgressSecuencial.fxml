@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProgressBarSecuencial.Controller">
+    <children>
+        <ProgressBar fx:id="idProgressBar01" layoutX="200.0" layoutY="100.0" prefWidth="200.0" progress="0.0" />
+        <ProgressBar fx:id="idProgressBar02" layoutX="200.0" layoutY="120.0" prefWidth="200.0" progress="0.0" />
+        <ProgressBar fx:id="idProgressBar03" layoutX="200.0" layoutY="140.0" prefWidth="200.0" progress="0.0" />
+        <ProgressBar fx:id="idProgressBar04" layoutX="200.0" layoutY="160.0" prefWidth="200.0" progress="0.0" />
+        <Label fx:id="idTextoLog" layoutX="200.0" layoutY="25.0" prefHeight="62.0" prefWidth="200.0" text="Label" />
+        <Button fx:id="idBtn01" layoutX="68.0" layoutY="210.0" mnemonicParsing="false" text="Task" />
+        <Button fx:id="idBtn02" layoutX="118.0" layoutY="210.0" mnemonicParsing="false" text="Class" />
+        <Button fx:id="idBtn03" layoutX="168.0" layoutY="210.0" mnemonicParsing="false" text="btn03 1progreso" />
+        <Button fx:id="idBtn04" layoutX="283.0" layoutY="210.0" mnemonicParsing="false" text="btn04 4progreso" />
+        <Button fx:id="idBtn05" layoutX="399.0" layoutY="211.0" mnemonicParsing="false" text="btn05 Semaphore" />
+        <Button fx:id="idBtn06" layoutX="68.0" layoutY="246.0" mnemonicParsing="false" text="btn06 CountDownLatch" />
+    </children>
+</AnchorPane>

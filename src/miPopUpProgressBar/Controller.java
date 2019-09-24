@@ -12,35 +12,39 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+
 public class Controller implements Initializable {
     @FXML
     private Button id_btn01;
+    @FXML
+    private Button id_btn02;
 
     @FXML
     private ProgressIndicator id_progressInd01;
 
+    ProgressController progressController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("initialize controller");
+
+        //acción botón 1
         id_btn01.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("a");
                 ProgressController progressController = new ProgressController();
-
-                /*try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("vistaProgress.fxml"));
-                    Parent root1 = (Parent) fxmlLoader.load();
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root1));
-                    stage.show();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }*/
-
-
             }
         });
+
+        //acción botón 2
+        id_btn02.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                progressController.arrancarTarea2();
+            }
+        });
+
     }
 }
 

@@ -3,7 +3,9 @@ package progressconTask;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -60,6 +62,14 @@ public class Controller implements Initializable {
                 id_progressbar1.progressProperty().unbind();
                 id_progressbar1.progressProperty().bind(task.progressProperty());
                 new Thread(task).start();
+
+                //evento fin tarea boton 1
+                task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler() {
+                    @Override
+                    public void handle(Event event) {
+                        System.out.println("fin tarea boton progressBar");
+                    }
+                });
             }
         });
 
@@ -71,6 +81,14 @@ public class Controller implements Initializable {
                 id_progressindicator1.progressProperty().unbind();
                 id_progressindicator1.progressProperty().bind(task.progressProperty());
                 new Thread(task).start();
+
+                //evento fin tarea boton 2
+                task.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, new EventHandler() {
+                    @Override
+                    public void handle(Event event) {
+                        System.out.println("fin tarea boton progressInd");
+                    }
+                });
             }
         });
 
