@@ -11,6 +11,8 @@ import javafx.scene.control.ProgressBar;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
 public class Controller implements Initializable {
@@ -30,6 +32,8 @@ public class Controller implements Initializable {
     @FXML
     private Button idBtn06;
     @FXML
+    private Button idBtn07;
+    @FXML
     private ProgressBar idProgressBar02;
     @FXML
     private ProgressBar idProgressBar03;
@@ -45,6 +49,8 @@ public class Controller implements Initializable {
                 System.out.println("hola task");
                 Task task = HacerTask();
                 new Thread(task).start();
+
+                task.setOnSucceeded(event3 -> System.out.println("evento fin de task..."));
             }
         });
 
@@ -244,8 +250,76 @@ public class Controller implements Initializable {
                 }
             };
             new Thread(task).start();
+        });
+        idBtn07.setOnAction(event -> {
+            //1. Create a task(Runnable Object) to execute
+            //2. Create Executor Pool using Executors
+            //3. Pass tasks to Executor Pool
+            //4. Shutdown the Executor Pool
+            //ejemplo con Thread Pools
+            //Paso 1: crear una cola de Threads indicando num. max de hilos en ejecución
+            ExecutorService pool = Executors.newFixedThreadPool(1);
+
+            //Iniciar los 4 Progress
+
+            //para Progress01
+            ProgresoBarra miProgreso01 = new ProgresoBarra();
+
+            //asociar la clase con el progreso
+            idProgressBar01.progressProperty().unbind();
+            idProgressBar01.progressProperty().bind(miProgreso01.progressProperty());
+
+            Thread miCallProgreso01 = new Thread(miProgreso01);
+
+            //algunas pruebas de cazar evento de empieza y acaba Task
+            miProgreso01.setOnSucceeded(event1 -> {
+                System.out.println("cazado fin de evento Progreso01");
+            });
+            miProgreso01.setOnRunning(event2 -> {
+                System.out.println("cazado running evento Progreso01. Solo se imprime una vez");
+            });
 
 
+            //para Progress02
+            ProgresoBarra miProgreso02 = new ProgresoBarra();
+
+            //asociar la clase con el progreso
+            idProgressBar02.progressProperty().unbind();
+            idProgressBar02.progressProperty().bind(miProgreso02.progressProperty());
+
+            Thread miCallProgreso02 = new Thread(miProgreso02);
+
+
+            //para Progress03
+            ProgresoBarra miProgreso03 = new ProgresoBarra();
+
+            //asociar la clase con el progreso
+            idProgressBar03.progressProperty().unbind();
+            idProgressBar03.progressProperty().bind(miProgreso03.progressProperty());
+
+            Thread miCallProgreso03 = new Thread(miProgreso03);
+
+
+            //para Progress04
+            ProgresoBarra miProgreso04 = new ProgresoBarra();
+
+            //asociar la clase con el progreso
+            idProgressBar04.progressProperty().unbind();
+            idProgressBar04.progressProperty().bind(miProgreso04.progressProperty());
+
+            Thread miCallProgreso04 = new Thread(miProgreso04);
+
+
+            //Paso 3.  Ejecutar desde pool los objetos Task o Thread
+            pool.execute(miProgreso01);
+            pool.execute(miProgreso02);
+            pool.execute(miProgreso03);
+            pool.execute(miProgreso04);
+
+            // pool shutdown ( Step 4)
+            pool.shutdown();
+
+            System.out.println("este texto sale antes del FINAL de los Task porque está en el hilo principal");
         });
 
     }
@@ -273,18 +347,18 @@ class HacerTareaCallable extends Task<Void> {
 
 class ProgresoBarra extends Task<Void> {
 
-    private int iterations = 100;
-    private int vueltas = 0;
+    private int total = 100;
+    private int iterador = 0;
 
     @Override
     protected Void call() throws Exception {
         System.out.println("dentro call Progress");
 
 
-        this.updateProgress(0, iterations);
+        this.updateProgress(0, total);
 
-        for (vueltas = 0; vueltas <= iterations; vueltas++) {
-            this.updateProgress(vueltas, iterations);
+        for (iterador = 0; iterador <= total; iterador++) {
+            this.updateProgress(iterador, total);
             Thread.sleep(20);
         }
         return null;
@@ -294,8 +368,8 @@ class ProgresoBarra extends Task<Void> {
 
 class ProgresoBarraSemaforo extends Task<Void> {
 
-    private int iterations = 100;
-    private int vueltas = 0;
+    private int total = 100;
+    private int iterador = 0;
     private Semaphore miSemaphore;
 
     public ProgresoBarraSemaforo(Semaphore miSemaphore) {
@@ -307,10 +381,10 @@ class ProgresoBarraSemaforo extends Task<Void> {
         System.out.println("esperando semaforo");
         miSemaphore.acquire();
         System.out.println("semaforo abierto");
-        this.updateProgress(0, iterations);
+        this.updateProgress(0, total);
         System.out.println("semaforo abierto2");
-        for (vueltas = 0; vueltas <= iterations; vueltas++) {
-            this.updateProgress(vueltas, iterations);
+        for (iterador = 0; iterador <= total; iterador++) {
+            this.updateProgress(iterador, total);
             Thread.sleep(20);
         }
         miSemaphore.release();
@@ -320,8 +394,8 @@ class ProgresoBarraSemaforo extends Task<Void> {
 
 class ProgresoBarraCountDownLatch extends Task<Void> {
 
-    private int iterations = 100;
-    private int vueltas = 0;
+    private int total = 100;
+    private int iterador = 0;
     private CountDownLatch latch;
 
     public ProgresoBarraCountDownLatch(CountDownLatch latch) {
@@ -331,10 +405,10 @@ class ProgresoBarraCountDownLatch extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
-        this.updateProgress(0, iterations);
+        this.updateProgress(0, total);
 
-        for (vueltas = 0; vueltas <= iterations; vueltas++) {
-            this.updateProgress(vueltas, iterations);
+        for (iterador = 0; iterador <= total; iterador++) {
+            this.updateProgress(iterador, total);
             Thread.sleep(20);
         }
         latch.countDown();

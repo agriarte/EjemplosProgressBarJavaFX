@@ -18,5 +18,6 @@
         <Button fx:id="idBtn04" layoutX="283.0" layoutY="210.0" mnemonicParsing="false" text="btn04 4progreso" />
         <Button fx:id="idBtn05" layoutX="399.0" layoutY="211.0" mnemonicParsing="false" text="btn05 Semaphore" />
         <Button fx:id="idBtn06" layoutX="68.0" layoutY="246.0" mnemonicParsing="false" text="btn06 CountDownLatch" />
+        <Button fx:id="idBtn07" layoutX="217.0" layoutY="246.0" mnemonicParsing="false" text="btn07 pools" />
     </children>
 </AnchorPane>

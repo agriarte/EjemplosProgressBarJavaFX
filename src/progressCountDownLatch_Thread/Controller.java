@@ -26,7 +26,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // NO FUNCIONA
         //ejercicio donde CountDownLatch detiene el flujo de programa esperando que todas las tareas terminen.
         //await() espera que terminen tareas
         //countdown() abre el pestillo de una tarea finalizada
@@ -48,7 +47,8 @@ public class Controller implements Initializable {
                 hiloProgressIndicate.start();
 
 
-                //ultimo hilo, se crea nuevo hilo de ejecución para que no congele el hilo principal
+                //*IMPORTANTE* se crea un nuevo hilo de ejecución para que no congele el hilo principal. De otra manera
+                //los progressbar no se actualizan hasta abrir el pestillo
                 Task<Void> task = new Task<Void>() {
                     @Override
                     public Void call() throws InterruptedException {
@@ -59,7 +59,7 @@ public class Controller implements Initializable {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        System.out.println("fin de procesos");
+                        System.out.println("Imprimido desde un hilo creado. *Fin de procesos*");
                         return null;
                     }
                 };
